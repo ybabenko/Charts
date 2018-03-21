@@ -758,6 +758,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         }
         else if recognizer.state == NSUIGestureRecognizerState.ended || recognizer.state == NSUIGestureRecognizerState.cancelled
         {
+            self.highlightValue(nil, callDelegate: false)
+          
             if _isDragging
             {
                 if recognizer.state == NSUIGestureRecognizerState.ended && isDragDecelerationEnabled
@@ -778,6 +780,11 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             {
                 _outerScrollView?.nsuiIsScrollEnabled = true
                 _outerScrollView = nil
+            }
+          
+            if delegate !== nil
+            {
+              delegate?.chartPanEnded?(self)
             }
         }
     }
